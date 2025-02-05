@@ -22,5 +22,5 @@ const userSchema=new mongoose.Schema({
 
 },{timestamps:true}// this is important for seeing the Created At and Updated At information..
 );
-const User=mongoose.Model("User",userSchema);
+const User=mongoose.model("User",userSchema);
 export default User;
