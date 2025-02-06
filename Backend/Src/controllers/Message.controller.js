@@ -33,6 +33,7 @@ export const sendMessages=async(req,res)=>{
         const{id:receiverId}=req.params;
         const senderId=req.user._id;
         let imageURL;
+        // cloudinary image Uplaod 
         if(image){
             const uploadResponse=await cloudinary.uplaoder.upload(image);
             imageURL=uploadResponse.secure_url;
@@ -44,7 +45,7 @@ export const sendMessages=async(req,res)=>{
             image:imageURL
         });
         await newMessage.save();
-        // here Socket.io FUnctionality Will be done or Real time chatting..
+        // here Socket.io Functionality Will be done or Real time chatting..
 
         res.status(201).json(newMessage);
     } catch (error) {
