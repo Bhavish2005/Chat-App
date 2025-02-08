@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js';
 import { Eye, EyeOff, Loader2, LockKeyholeIcon, MailQuestionIcon, MessageSquareQuote, User } from 'lucide-react';
-import {Link} from "react-router"
+import {Link} from "react-router-dom"
 import chatting from '../Assest/chatting .png'
 import toast from 'react-hot-toast';
 
@@ -42,7 +42,7 @@ if(!formData.fullName.trim()) return toast.error("Name is Required Field");
               <p className='text-base-content/60'>Get Started with Easiest Setup and Interactive Chat features</p>
             </div>
           </div>
-          <form on onSubmit={handleSubmit} className='space-y-6'>
+          <form  onSubmit={handleSubmit} className='space-y-6'>
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text font-medium'>Full Name</span>
