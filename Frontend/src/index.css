@@ -1,2 +1,6 @@
+@keyframes grow-shrink {
+    0%, 100% { transform: scale(1); }  /* Normal size */
+    50% { transform: scale(1.2); }  /* Grow 20% bigger */
+  }
 @import "tailwindcss";
 @plugin "daisyui";

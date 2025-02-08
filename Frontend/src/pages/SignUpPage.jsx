@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js';
-import { Eye, EyeOff, LockKeyholeIcon, Mail, MailQuestionIcon, MessageSquareQuote, User } from 'lucide-react';
+import { Eye, EyeOff, Loader2, LockKeyholeIcon, MailQuestionIcon, MessageSquareQuote, User } from 'lucide-react';
+import {Link} from "react-router"
+import chatting from '../Assest/chatting .png'
+import toast from 'react-hot-toast';
 
 const SignUpPage = () => {
   const[showPassword,setShowPassword]=useState(false);
@@ -11,13 +14,23 @@ const SignUpPage = () => {
  });
  const {signup,isSigningUp}=useAuthStore();
  const validateForm=()=>{
-
+if(!formData.fullName.trim()) return toast.error("Name is Required Field");
+  if(!formData.email.trim()) return toast.error("Email is Required Field");
+  if(! /\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid Email Format");//this is because in data base the emial is of type string..
+  if(!formData.password) return toast.error("Password Is Required Field");
+  if(formData.password.length<6) return toast.error("Password Must of at least length 6 characters");
+  return true;
  }
  const handleSubmit=(e)=>{
   e.preventDefault();
+  const success=validateForm()
+  if(success==true)
+    signup(formData);
  }
+
   return (
-    <div className='min-h-screen grid  lq:grid-cols-2'>
+    <div className='min-h-screen grid  lg:grid-cols-2'>
+   
       <div className='flex flex-col justify-center items-center p-6 sm:p-12'>
         <div className='w-full max-w-md space-y-8'>
           <div className='text-center md-8'>
@@ -73,8 +86,36 @@ const SignUpPage = () => {
               </button>
             </div>
             </div>
+            <button type='submit' className='btn btn-primary w-full' disabled={isSigningUp}>
+              {
+                isSigningUp ? (
+                  <>
+                    <Loader2 className='size-5 animate-spin'/>
+                    It will take a Second....
+                  </>
+                ):(
+                  "Sign Up"
+                )
+              }
+            </button>
+          
           </form>
-        </div>
+          <div className='text-center'>
+              <p className='text-base-center/60'>
+                If You Have Already An Account{" "}
+                <Link to="/login" className="link link-primary no-underline ">
+                  Click Here
+                </Link>
+              </p>
+            </div>
+        </div> 
+      </div>
+      <div className=' hidden lg:flex items-center justify-center bg-base-200 p-12'>
+      <div className='max-w-md text-center'>
+        <img src={chatting}  className="animate-[grow-shrink_2s_infinite_ease-in-out]"></img>
+      <h1 className='text-2xl font-bold mb-4'> Join Our Community </h1>
+    <p class="text-base-content/60"> Connect with Friends, Share Moments and Stay in Touch with your Loved Once</p>
+      </div>
       </div>
     </div>
   )

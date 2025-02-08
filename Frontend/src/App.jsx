@@ -9,7 +9,8 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import axios from 'axios';
 import { axiosInstance } from './lib/axios.js';
 import { useAuthStore } from './store/useAuthStore.js';
-import {LoaderPinwheel} from "lucide-react"
+import {LoaderPinwheel} from "lucide-react";
+import {Toaster} from "react-hot-toast";
 const App = () => {
   const {authUser,checkAuth,isCheckingAuth}=useAuthStore()// this is defined in store ..
   useEffect(()=>{
@@ -31,6 +32,7 @@ const App = () => {
         <Route path='/settings' element={<SettingsPage/>}/>
         <Route path='/profile' element={authUser?<ProfilePage/>:<Navigate to='/login'/>}/>
       </Routes>
+      <Toaster/>
     </div>
   )
 }
